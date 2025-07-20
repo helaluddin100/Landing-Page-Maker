@@ -1,0 +1,41 @@
+<?php
+
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Api\PageBuilderController;
+use App\Http\Controllers\Api\OrderController;
+
+/*
+|--------------------------------------------------------------------------
+| API Routes
+|--------------------------------------------------------------------------
+*/
+
+Route::middleware('api')->group(function () {
+    
+    // Page Builder Routes
+    Route::prefix('page-builder')->group(function () {
+        Route::get('/sections', [PageBuilderController::class, 'getSections']);
+        Route::get('/pages', [PageBuilderController::class, 'getPages']);
+        Route::get('/{id}', [PageBuilderController::class, 'getPage']);
+        Route::post('/{id?}', [PageBuilderController::class, 'savePage']);
+        Route::delete('/{id}', [PageBuilderController::class, 'deletePage']);
+        Route::post('/{id}/duplicate', [PageBuilderController::class, 'duplicatePage']);
+    });
+
+    // Order Routes
+    Route::prefix('orders')->group(function () {
+        Route::get('/', [OrderController::class, 'index']);
+        Route::post('/', [OrderController::class, 'store']);
+        Route::get('/statistics', [OrderController::class, 'statistics']);
+        Route::get('/{order}', [OrderController::class, 'show']);
+        Route::put('/{order}', [OrderController::class, 'update']);
+        Route::delete('/{order}', [OrderController::class, 'destroy']);
+    });
+
+    // Legacy route for frontend compatibility
+    Route::post('/order', [OrderController::class, 'store']);
+});
+
+// Public routes (if needed)
+Route::get('/sections', [PageBuilderController::class, 'getSections']);
