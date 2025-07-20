@@ -1,7 +1,7 @@
 import { Container, Row, Col, Card } from 'react-bootstrap'
 import EditableText from '../EditableText'
 
-const TestimonialSection = ({ data, onUpdate }) => {
+const TestimonialSection = ({ data, onUpdate, isViewMode = false }) => {
   const testimonials = data.testimonials || [
     {
       id: 1,
@@ -37,6 +37,7 @@ const TestimonialSection = ({ data, onUpdate }) => {
               value={data.title}
               onChange={(title) => onUpdate({ title })}
               placeholder="What Our Customers Say"
+              isViewMode={isViewMode}
             />
             
             <EditableText
@@ -45,6 +46,7 @@ const TestimonialSection = ({ data, onUpdate }) => {
               value={data.subtitle}
               onChange={(subtitle) => onUpdate({ subtitle })}
               placeholder="Real reviews from real customers"
+              isViewMode={isViewMode}
             />
           </Col>
         </Row>

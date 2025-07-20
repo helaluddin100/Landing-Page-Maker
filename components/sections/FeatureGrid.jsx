@@ -1,7 +1,7 @@
 import { Container, Row, Col } from 'react-bootstrap'
 import EditableText from '../EditableText'
 
-const FeatureGrid = ({ data, onUpdate }) => {
+const FeatureGrid = ({ data, onUpdate, isViewMode = false }) => {
   const features = data.features || [
     {
       id: 1,
@@ -52,6 +52,7 @@ const FeatureGrid = ({ data, onUpdate }) => {
               value={data.title}
               onChange={(title) => onUpdate({ title })}
               placeholder="Why Choose Us"
+              isViewMode={isViewMode}
             />
             
             <EditableText
@@ -60,6 +61,7 @@ const FeatureGrid = ({ data, onUpdate }) => {
               value={data.subtitle}
               onChange={(subtitle) => onUpdate({ subtitle })}
               placeholder="Discover the features that make us stand out"
+              isViewMode={isViewMode}
             />
           </Col>
         </Row>

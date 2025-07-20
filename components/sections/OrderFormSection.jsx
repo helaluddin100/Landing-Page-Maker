@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { Container, Row, Col, Form, Button, Alert, Card } from 'react-bootstrap'
 import EditableText from '../EditableText'
 
-const OrderFormSection = ({ data, onUpdate }) => {
+const OrderFormSection = ({ data, onUpdate, isViewMode = false }) => {
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -72,6 +72,7 @@ const OrderFormSection = ({ data, onUpdate }) => {
                     value={data.title}
                     onChange={(title) => onUpdate({ title })}
                     placeholder="Place Your Order"
+                    isViewMode={isViewMode}
                   />
                   
                   <EditableText
@@ -80,6 +81,7 @@ const OrderFormSection = ({ data, onUpdate }) => {
                     value={data.subtitle}
                     onChange={(subtitle) => onUpdate({ subtitle })}
                     placeholder="Fill out the form below to complete your purchase"
+                    isViewMode={isViewMode}
                   />
                 </div>
 
@@ -182,6 +184,7 @@ const OrderFormSection = ({ data, onUpdate }) => {
                             value={data.buttonText}
                             onChange={(buttonText) => onUpdate({ buttonText })}
                             placeholder="Submit Order"
+                            isViewMode={isViewMode}
                           />
                         </>
                       )}

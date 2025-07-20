@@ -1,7 +1,7 @@
 import { Container, Row, Col, Card, Button, Badge } from 'react-bootstrap'
 import EditableText from '../EditableText'
 
-const ProductDetailsSection = ({ data, onUpdate }) => {
+const ProductDetailsSection = ({ data, onUpdate, isViewMode = false }) => {
   const product = data.product || {
     id: 1,
     name: 'Premium Wireless Headphones',
@@ -52,6 +52,7 @@ const ProductDetailsSection = ({ data, onUpdate }) => {
                 value={data.title || product.name}
                 onChange={(title) => onUpdate({ title })}
                 placeholder="Product Name"
+                isViewMode={isViewMode}
               />
               
               <div className="d-flex align-items-center mb-3">
@@ -73,6 +74,7 @@ const ProductDetailsSection = ({ data, onUpdate }) => {
                     value={data.price || product.price}
                     onChange={(price) => onUpdate({ price })}
                     placeholder="$199.99"
+                    isViewMode={isViewMode}
                   />
                 </span>
                 {product.originalPrice && (
@@ -88,6 +90,7 @@ const ProductDetailsSection = ({ data, onUpdate }) => {
                 value={data.description || product.description}
                 onChange={(description) => onUpdate({ description })}
                 placeholder="Product description..."
+                isViewMode={isViewMode}
               />
               
               <div className="mb-4">
@@ -115,6 +118,7 @@ const ProductDetailsSection = ({ data, onUpdate }) => {
                     value={data.buttonText || (product.inStock ? 'Add to Cart' : 'Out of Stock')}
                     onChange={(buttonText) => onUpdate({ buttonText })}
                     placeholder="Add to Cart"
+                    isViewMode={isViewMode}
                   />
                 </Button>
                 

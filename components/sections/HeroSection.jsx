@@ -1,7 +1,7 @@
 import { Container, Row, Col, Button } from 'react-bootstrap'
 import EditableText from '../EditableText'
 
-const HeroSection = ({ data, onUpdate }) => {
+const HeroSection = ({ data, onUpdate, isViewMode = false }) => {
   return (
     <section className="hero-section">
       <Container>
@@ -13,6 +13,7 @@ const HeroSection = ({ data, onUpdate }) => {
               value={data.title}
               onChange={(title) => onUpdate({ title })}
               placeholder="Enter hero title..."
+              isViewMode={isViewMode}
             />
             
             <EditableText
@@ -21,6 +22,7 @@ const HeroSection = ({ data, onUpdate }) => {
               value={data.subtitle}
               onChange={(subtitle) => onUpdate({ subtitle })}
               placeholder="Enter hero subtitle..."
+              isViewMode={isViewMode}
             />
             
             <div className="d-flex gap-3">
@@ -34,6 +36,7 @@ const HeroSection = ({ data, onUpdate }) => {
                   value={data.primaryButtonText}
                   onChange={(primaryButtonText) => onUpdate({ primaryButtonText })}
                   placeholder="Primary Button"
+                  isViewMode={isViewMode}
                 />
               </Button>
               
@@ -47,6 +50,7 @@ const HeroSection = ({ data, onUpdate }) => {
                   value={data.secondaryButtonText}
                   onChange={(secondaryButtonText) => onUpdate({ secondaryButtonText })}
                   placeholder="Secondary Button"
+                  isViewMode={isViewMode}
                 />
               </Button>
             </div>

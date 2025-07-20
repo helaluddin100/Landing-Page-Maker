@@ -6,6 +6,7 @@ const EditableText = ({
   onChange, 
   placeholder = 'Click to edit...', 
   className = '',
+  isViewMode = false,
   ...props 
 }) => {
   const [isEditing, setIsEditing] = useState(false)
@@ -24,6 +25,7 @@ const EditableText = ({
   }, [isEditing])
 
   const handleClick = () => {
+    if (isViewMode) return; // Prevent editing in view mode
     setIsEditing(true)
   }
 
@@ -74,9 +76,9 @@ const EditableText = ({
 
   return (
     <Tag 
-      className={`editable-text ${className} ${!value ? 'text-muted' : ''}`}
+      className={`${isViewMode ? 'view-only-text' : 'editable-text'} ${className} ${!value ? 'text-muted' : ''}`}
       onClick={handleClick}
-      style={{ cursor: 'text' }}
+      style={{ cursor: isViewMode ? 'default' : 'text' }}
       {...props}
     >
       {displayValue}

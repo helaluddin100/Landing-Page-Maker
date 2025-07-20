@@ -185,24 +185,37 @@ body {
   overflow-x: hidden;
 }
 
-.landing-page-view .section-wrapper {
+.view-only-section {
+  width: 100%;
+}
+
+.view-only-section .section-wrapper {
   border: none !important;
   margin-bottom: 0 !important;
 }
 
-.landing-page-view .section-controls {
+.view-only-section .section-controls {
   display: none !important;
 }
 
-.landing-page-view .editable-text {
+.view-only-text {
   cursor: default !important;
+  border: none !important;
+  background: transparent !important;
+  padding: 0 !important;
+  margin: 0 !important;
+}
+
+.view-only-text:hover {
   border: none !important;
   background: transparent !important;
 }
 
-.landing-page-view .editable-text:hover {
+.view-only-text:focus {
+  outline: none !important;
   border: none !important;
   background: transparent !important;
+  box-shadow: none !important;
 }
 
 /* Swiper Custom Styles */

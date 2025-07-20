@@ -9,7 +9,7 @@ import 'swiper/css/navigation'
 import 'swiper/css/pagination'
 import 'swiper/css/effect-fade'
 
-const SwiperSlider = ({ data, onUpdate }) => {
+const SwiperSlider = ({ data, onUpdate, isViewMode = false }) => {
   const slides = data.slides || [
     {
       id: 1,
@@ -81,11 +81,13 @@ const SwiperSlider = ({ data, onUpdate }) => {
                           className="display-4 fw-bold mb-3"
                           value={slide.title}
                           onChange={(title) => {
+                            if (isViewMode) return;
                             const newSlides = [...slides]
                             newSlides[index] = { ...newSlides[index], title }
                             onUpdate({ slides: newSlides })
                           }}
                           placeholder="Enter slide title..."
+                          isViewMode={isViewMode}
                         />
                         
                         <EditableText
@@ -93,11 +95,13 @@ const SwiperSlider = ({ data, onUpdate }) => {
                           className="lead mb-4"
                           value={slide.subtitle}
                           onChange={(subtitle) => {
+                            if (isViewMode) return;
                             const newSlides = [...slides]
                             newSlides[index] = { ...newSlides[index], subtitle }
                             onUpdate({ slides: newSlides })
                           }}
                           placeholder="Enter slide subtitle..."
+                          isViewMode={isViewMode}
                         />
                         
                         <Button variant="primary" size="lg" className="px-4 py-3">
@@ -105,11 +109,13 @@ const SwiperSlider = ({ data, onUpdate }) => {
                             tag="span"
                             value={slide.buttonText}
                             onChange={(buttonText) => {
+                              if (isViewMode) return;
                               const newSlides = [...slides]
                               newSlides[index] = { ...newSlides[index], buttonText }
                               onUpdate({ slides: newSlides })
                             }}
                             placeholder="Button Text"
+                            isViewMode={isViewMode}
                           />
                         </Button>
                       </div>

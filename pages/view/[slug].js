@@ -1,9 +1,14 @@
 import { useState, useEffect } from 'react'
 import { useRouter } from 'next/router'
-import { Container } from 'react-bootstrap'
-import SectionRenderer from '../../components/SectionRenderer'
+import dynamic from 'next/dynamic'
 import { mockApiService } from '../../services/mockApiService'
 import Head from 'next/head'
+
+// Dynamically import SectionRenderer to prevent SSR issues
+const SectionRenderer = dynamic(
+  () => import('../../components/SectionRenderer'),
+  { ssr: false }
+)
 
 export default function ViewLandingPage() {
   const router = useRouter()
@@ -77,11 +82,14 @@ export default function ViewLandingPage() {
 
       <div className="landing-page-view">
         {page.sections && page.sections.map((section, index) => (
-          <SectionRenderer 
+          <div key={section.id || index} className="view-only-section">
+            <SectionRenderer 
             key={section.id || index}
             section={section}
-            onUpdate={() => {}} // Read-only mode
-          />
+            onUpdate={() => {}} // Read-only mode - no updates allowed
+            isViewMode={true} // Pass view mode flag
+            />
+          </div>
         ))}
       </div>
     </>

@@ -1,7 +1,7 @@
 import { Container, Row, Col, Form, Button, InputGroup } from 'react-bootstrap'
 import EditableText from '../EditableText'
 
-const NewsletterSection = ({ data, onUpdate }) => {
+const NewsletterSection = ({ data, onUpdate, isViewMode = false }) => {
   return (
     <section className="newsletter-section py-5">
       <Container>
@@ -13,6 +13,7 @@ const NewsletterSection = ({ data, onUpdate }) => {
               value={data.title}
               onChange={(title) => onUpdate({ title })}
               placeholder="Stay Updated"
+              isViewMode={isViewMode}
             />
             
             <EditableText
@@ -21,6 +22,7 @@ const NewsletterSection = ({ data, onUpdate }) => {
               value={data.subtitle}
               onChange={(subtitle) => onUpdate({ subtitle })}
               placeholder="Subscribe to our newsletter for the latest updates and exclusive offers"
+              isViewMode={isViewMode}
             />
             
             <Row className="justify-content-center">
@@ -37,6 +39,7 @@ const NewsletterSection = ({ data, onUpdate }) => {
                       value={data.buttonText}
                       onChange={(buttonText) => onUpdate({ buttonText })}
                       placeholder="Subscribe"
+                      isViewMode={isViewMode}
                     />
                   </Button>
                 </InputGroup>

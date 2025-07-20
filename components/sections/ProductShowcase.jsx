@@ -1,7 +1,7 @@
 import { Container, Row, Col, Card, Button } from 'react-bootstrap'
 import EditableText from '../EditableText'
 
-const ProductShowcase = ({ data, onUpdate }) => {
+const ProductShowcase = ({ data, onUpdate, isViewMode = false }) => {
   const products = data.products || [
     {
       id: 1,
@@ -37,6 +37,7 @@ const ProductShowcase = ({ data, onUpdate }) => {
               value={data.title}
               onChange={(title) => onUpdate({ title })}
               placeholder="Featured Products"
+              isViewMode={isViewMode}
             />
             
             <EditableText
@@ -45,6 +46,7 @@ const ProductShowcase = ({ data, onUpdate }) => {
               value={data.subtitle}
               onChange={(subtitle) => onUpdate({ subtitle })}
               placeholder="Discover our amazing product collection"
+              isViewMode={isViewMode}
             />
           </Col>
         </Row>

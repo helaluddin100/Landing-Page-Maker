@@ -1,7 +1,7 @@
 import { Container, Row, Col, Button } from 'react-bootstrap'
 import EditableText from '../EditableText'
 
-const ImageTextSection = ({ data, onUpdate }) => {
+const ImageTextSection = ({ data, onUpdate, isViewMode = false }) => {
   const isImageLeft = data.imagePosition !== 'right'
 
   return (
@@ -25,6 +25,7 @@ const ImageTextSection = ({ data, onUpdate }) => {
               value={data.title}
               onChange={(title) => onUpdate({ title })}
               placeholder="About Our Company"
+              isViewMode={isViewMode}
             />
             
             <EditableText
@@ -33,6 +34,7 @@ const ImageTextSection = ({ data, onUpdate }) => {
               value={data.content}
               onChange={(content) => onUpdate({ content })}
               placeholder="Tell your story here. Explain what makes your company unique and why customers should choose you."
+              isViewMode={isViewMode}
             />
             
             <Button variant="primary" size="lg">
@@ -41,6 +43,7 @@ const ImageTextSection = ({ data, onUpdate }) => {
                 value={data.buttonText}
                 onChange={(buttonText) => onUpdate({ buttonText })}
                 placeholder="Learn More"
+                isViewMode={isViewMode}
               />
             </Button>
           </Col>

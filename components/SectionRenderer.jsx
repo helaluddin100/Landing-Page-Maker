@@ -9,7 +9,7 @@ import ProductDetailsSection from './sections/ProductDetailsSection'
 import OrderFormSection from './sections/OrderFormSection'
 import SwiperSlider from './sections/SwiperSlider'
 
-const SectionRenderer = ({ section, onUpdate }) => {
+const SectionRenderer = ({ section, onUpdate, isViewMode = false }) => {
   const { type, data } = section
 
   const sectionComponents = {
@@ -39,6 +39,7 @@ const SectionRenderer = ({ section, onUpdate }) => {
     <SectionComponent 
       data={data}
       onUpdate={onUpdate}
+      isViewMode={isViewMode}
     />
   )
 }

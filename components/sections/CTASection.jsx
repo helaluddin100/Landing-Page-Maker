@@ -1,7 +1,7 @@
 import { Container, Row, Col, Button } from 'react-bootstrap'
 import EditableText from '../EditableText'
 
-const CTASection = ({ data, onUpdate }) => {
+const CTASection = ({ data, onUpdate, isViewMode = false }) => {
   return (
     <section className="cta-section py-5">
       <Container>
@@ -13,6 +13,7 @@ const CTASection = ({ data, onUpdate }) => {
               value={data.title}
               onChange={(title) => onUpdate({ title })}
               placeholder="Ready to Get Started?"
+              isViewMode={isViewMode}
             />
             
             <EditableText
@@ -21,6 +22,7 @@ const CTASection = ({ data, onUpdate }) => {
               value={data.subtitle}
               onChange={(subtitle) => onUpdate({ subtitle })}
               placeholder="Join thousands of satisfied customers and start your journey today"
+              isViewMode={isViewMode}
             />
             
             <div className="d-flex gap-3 justify-content-center">
@@ -30,6 +32,7 @@ const CTASection = ({ data, onUpdate }) => {
                   value={data.primaryButtonText}
                   onChange={(primaryButtonText) => onUpdate({ primaryButtonText })}
                   placeholder="Get Started"
+                  isViewMode={isViewMode}
                 />
               </Button>
               
@@ -39,6 +42,7 @@ const CTASection = ({ data, onUpdate }) => {
                   value={data.secondaryButtonText}
                   onChange={(secondaryButtonText) => onUpdate({ secondaryButtonText })}
                   placeholder="Learn More"
+                  isViewMode={isViewMode}
                 />
               </Button>
             </div>
