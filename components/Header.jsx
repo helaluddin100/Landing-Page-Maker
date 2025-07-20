@@ -33,6 +33,14 @@ const Header = ({ onToggleSidebar, sidebarVisible }) => {
           
           <Navbar.Collapse id="basic-navbar-nav" className="d-none d-lg-block">
             <Nav className="ms-auto align-items-center">
+              <Nav.Link href="/pages" className="mx-2">
+                <i className="bi bi-file-earmark-text me-1"></i>
+                Pages
+              </Nav.Link>
+              <Nav.Link href="/domains" className="mx-2">
+                <i className="bi bi-globe me-1"></i>
+                Domains
+              </Nav.Link>
               <Nav.Link href="#features" className="mx-2">
                 <i className="bi bi-grid-3x3 me-1"></i>
                 Features
@@ -68,6 +76,14 @@ const Header = ({ onToggleSidebar, sidebarVisible }) => {
         </Offcanvas.Header>
         <Offcanvas.Body>
           <Nav className="flex-column">
+            <Nav.Link href="/pages" className="py-3 border-bottom">
+              <i className="bi bi-file-earmark-text me-2"></i>
+              Pages
+            </Nav.Link>
+            <Nav.Link href="/domains" className="py-3 border-bottom">
+              <i className="bi bi-globe me-2"></i>
+              Domains
+            </Nav.Link>
             <Nav.Link href="#features" className="py-3 border-bottom">
               <i className="bi bi-grid-3x3 me-2"></i>
               Features

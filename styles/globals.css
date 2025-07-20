@@ -179,6 +179,32 @@ body {
   color: white;
 }
 
+/* Landing Page View Styles */
+.landing-page-view {
+  width: 100%;
+  overflow-x: hidden;
+}
+
+.landing-page-view .section-wrapper {
+  border: none !important;
+  margin-bottom: 0 !important;
+}
+
+.landing-page-view .section-controls {
+  display: none !important;
+}
+
+.landing-page-view .editable-text {
+  cursor: default !important;
+  border: none !important;
+  background: transparent !important;
+}
+
+.landing-page-view .editable-text:hover {
+  border: none !important;
+  background: transparent !important;
+}
+
 /* Swiper Custom Styles */
 .hero-swiper .swiper-pagination {
   bottom: 20px !important;

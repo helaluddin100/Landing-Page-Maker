@@ -10,6 +10,74 @@ export const mockApiService = {
     return sectionTypes
   },
 
+  // GET /api/page-builder/slug/{slug}
+  getPageBySlug: async (slug) => {
+    await new Promise(resolve => setTimeout(resolve, 500))
+
+    // Mock pages database
+    const mockPages = [
+      {
+        id: 1,
+        title: 'My Landing Page',
+        slug: 'my-landing-page',
+        status: 'published',
+        meta_description: 'Amazing landing page for our products',
+        meta_keywords: 'landing, page, products',
+        sections: [
+          {
+            id: 'section-1',
+            type: 'hero',
+            data: {
+              title: 'Welcome to Our Amazing Store',
+              subtitle: 'Discover premium products at unbeatable prices',
+              primaryButtonText: 'Shop Now',
+              secondaryButtonText: 'Learn More',
+              image: 'https://images.pexels.com/photos/3184291/pexels-photo-3184291.jpeg?auto=compress&cs=tinysrgb&w=600'
+            }
+          },
+          {
+            id: 'section-2',
+            type: 'product_showcase',
+            data: {
+              title: 'Featured Products',
+              subtitle: 'Check out our best sellers'
+            }
+          }
+        ],
+        created_at: new Date().toISOString(),
+        updated_at: new Date().toISOString()
+      },
+      {
+        id: 2,
+        title: 'Product Launch Page',
+        slug: 'product-launch',
+        status: 'published',
+        meta_description: 'Exciting new product launch',
+        meta_keywords: 'product, launch, new',
+        sections: [
+          {
+            id: 'section-1',
+            type: 'hero',
+            data: {
+              title: 'Revolutionary New Product',
+              subtitle: 'Experience the future today',
+              primaryButtonText: 'Pre-Order Now',
+              secondaryButtonText: 'Learn More'
+            }
+          }
+        ],
+        created_at: new Date().toISOString(),
+        updated_at: new Date().toISOString()
+      }
+    ]
+
+    const page = mockPages.find(p => p.slug === slug)
+    if (!page) {
+      throw new Error('Page not found')
+    }
+
+    return page
+  },
   // GET /api/page-builder/{id}
   getPage: async (pageId) => {
     await new Promise(resolve => setTimeout(resolve, 500))
@@ -18,6 +86,10 @@ export const mockApiService = {
     const mockPage = {
       id: pageId,
       title: 'My Landing Page',
+      slug: 'my-landing-page',
+      status: 'draft',
+      meta_description: 'Amazing landing page for our products',
+      meta_keywords: 'landing, page, products',
       sections: [
         {
           id: 'section-1',
@@ -108,7 +180,103 @@ export const mockApiService = {
       return result.data;
     } catch (error) {
       console.error('Error fetching pages:', error);
-      throw error;
+      // Return mock data for development
+      await new Promise(resolve => setTimeout(resolve, 500))
+      return {
+        data: [
+          {
+            id: 1,
+            title: 'My Landing Page',
+            slug: 'my-landing-page',
+            status: 'published',
+            meta_description: 'Amazing landing page for our products',
+            meta_keywords: 'landing, page, products',
+            sections: [{ id: 'section-1', type: 'hero' }],
+            created_at: new Date().toISOString(),
+            updated_at: new Date().toISOString()
+          },
+          {
+            id: 2,
+            title: 'Product Launch Page',
+            slug: 'product-launch',
+            status: 'draft',
+            meta_description: 'Exciting new product launch',
+            meta_keywords: 'product, launch, new',
+            sections: [{ id: 'section-1', type: 'hero' }],
+            created_at: new Date().toISOString(),
+            updated_at: new Date().toISOString()
+          }
+        ]
+      }
     }
   },
+
+  // Update page metadata
+  updatePageMeta: async (pageId, pageData) => {
+    await new Promise(resolve => setTimeout(resolve, 500))
+    console.log('Updating page meta:', pageId, pageData)
+    return { success: true, message: 'Page updated successfully' }
+  },
+
+  // Delete page
+  deletePage: async (pageId) => {
+    await new Promise(resolve => setTimeout(resolve, 500))
+    console.log('Deleting page:', pageId)
+    return { success: true, message: 'Page deleted successfully' }
+  },
+
+  // Duplicate page
+  duplicatePage: async (pageId) => {
+    await new Promise(resolve => setTimeout(resolve, 500))
+    console.log('Duplicating page:', pageId)
+    return { success: true, message: 'Page duplicated successfully' }
+  },
+
+  // ==========================================
+  // CUSTOM DOMAINS APIs
+  // ==========================================
+
+  // Get all domains
+  getDomains: async () => {
+    await new Promise(resolve => setTimeout(resolve, 500))
+    return [
+      {
+        id: 1,
+        domain: 'example.com',
+        page_id: 1,
+        is_active: true,
+        created_at: new Date().toISOString(),
+        updated_at: new Date().toISOString()
+      },
+      {
+        id: 2,
+        domain: 'mystore.com',
+        page_id: 2,
+        is_active: false,
+        created_at: new Date().toISOString(),
+        updated_at: new Date().toISOString()
+      }
+    ]
+  },
+
+  // Create domain
+  createDomain: async (domainData) => {
+    await new Promise(resolve => setTimeout(resolve, 500))
+    console.log('Creating domain:', domainData)
+    return { success: true, message: 'Domain created successfully' }
+  },
+
+  // Update domain
+  updateDomain: async (domainId, domainData) => {
+    await new Promise(resolve => setTimeout(resolve, 500))
+    console.log('Updating domain:', domainId, domainData)
+    return { success: true, message: 'Domain updated successfully' }
+  },
+
+  // Delete domain
+  deleteDomain: async (domainId) => {
+    await new Promise(resolve => setTimeout(resolve, 500))
+    console.log('Deleting domain:', domainId)
+    return { success: true, message: 'Domain deleted successfully' }
+  }
 }

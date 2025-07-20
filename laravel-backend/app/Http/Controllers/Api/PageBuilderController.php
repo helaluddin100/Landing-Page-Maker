@@ -30,6 +30,28 @@ class PageBuilderController extends Controller
     }
 
     /**
+     * Get a landing page by slug
+     */
+    public function getPageBySlug($slug): JsonResponse
+    {
+        try {
+            $page = LandingPage::where('slug', $slug)
+                ->where('status', 'published')
+                ->firstOrFail();
+            
+            return response()->json([
+                'success' => true,
+                'data' => $page
+            ]);
+        } catch (\Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Page not found',
+                'error' => $e->getMessage()
+            ], 404);
+        }
+    }
+    /**
      * Get a specific landing page
      */
     public function getPage($id): JsonResponse
