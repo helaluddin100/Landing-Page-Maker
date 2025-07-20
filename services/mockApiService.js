@@ -278,5 +278,151 @@ export const mockApiService = {
     await new Promise(resolve => setTimeout(resolve, 500))
     console.log('Deleting domain:', domainId)
     return { success: true, message: 'Domain deleted successfully' }
+  },
+
+  // ==========================================
+  // SECTION MANAGEMENT APIs
+  // ==========================================
+
+  // Get all sections with filters
+  getSections: async (filters = {}) => {
+    await new Promise(resolve => setTimeout(resolve, 500))
+    
+    // Mock sections data
+    let sections = [
+      {
+        id: 1,
+        landing_page_id: 1,
+        section_id: 'hero-section-1',
+        type: 'hero',
+        data: {
+          title: 'Welcome to Our Store',
+          subtitle: 'Amazing products await you',
+          primaryButtonText: 'Shop Now',
+          secondaryButtonText: 'Learn More'
+        },
+        sort_order: 1,
+        is_active: true,
+        created_at: new Date().toISOString(),
+        updated_at: new Date().toISOString()
+      },
+      {
+        id: 2,
+        landing_page_id: 1,
+        section_id: 'products-section-1',
+        type: 'product_showcase',
+        data: {
+          title: 'Featured Products',
+          subtitle: 'Check out our best sellers'
+        },
+        sort_order: 2,
+        is_active: true,
+        created_at: new Date().toISOString(),
+        updated_at: new Date().toISOString()
+      },
+      {
+        id: 3,
+        landing_page_id: 2,
+        section_id: 'cta-section-1',
+        type: 'cta',
+        data: {
+          title: 'Ready to Get Started?',
+          subtitle: 'Join us today',
+          primaryButtonText: 'Get Started'
+        },
+        sort_order: 1,
+        is_active: false,
+        created_at: new Date().toISOString(),
+        updated_at: new Date().toISOString()
+      }
+    ]
+
+    // Apply filters
+    if (filters.page_id) {
+      sections = sections.filter(s => s.landing_page_id == filters.page_id)
+    }
+    if (filters.type) {
+      sections = sections.filter(s => s.type === filters.type)
+    }
+    if (filters.active !== '') {
+      sections = sections.filter(s => s.is_active === (filters.active === 'true'))
+    }
+
+    return { data: sections }
+  },
+
+  // Get section types
+  getSectionTypes: async () => {
+    await new Promise(resolve => setTimeout(resolve, 300))
+    return [
+      { type: 'hero', name: 'Hero Section' },
+      { type: 'product_showcase', name: 'Product Showcase' },
+      { type: 'testimonial', name: 'Testimonials' },
+      { type: 'cta', name: 'Call to Action' },
+      { type: 'newsletter', name: 'Newsletter' },
+      { type: 'feature_grid', name: 'Feature Grid' },
+      { type: 'image_text', name: 'Image + Text' },
+      { type: 'product_details', name: 'Product Details' },
+      { type: 'order_form', name: 'Order Form' }
+    ]
+  },
+
+  // Create section
+  createSection: async (sectionData) => {
+    await new Promise(resolve => setTimeout(resolve, 500))
+    console.log('Creating section:', sectionData)
+    return { success: true, message: 'Section created successfully' }
+  },
+
+  // Update section
+  updateSection: async (sectionId, sectionData) => {
+    await new Promise(resolve => setTimeout(resolve, 500))
+    console.log('Updating section:', sectionId, sectionData)
+    return { success: true, message: 'Section updated successfully' }
+  },
+
+  // Delete section
+  deleteSection: async (sectionId) => {
+    await new Promise(resolve => setTimeout(resolve, 500))
+    console.log('Deleting section:', sectionId)
+    return { success: true, message: 'Section deleted successfully' }
+  },
+
+  // Duplicate section
+  duplicateSection: async (sectionId) => {
+    await new Promise(resolve => setTimeout(resolve, 500))
+    console.log('Duplicating section:', sectionId)
+    return { success: true, message: 'Section duplicated successfully' }
+  },
+
+  // Toggle section status
+  toggleSectionStatus: async (sectionId) => {
+    await new Promise(resolve => setTimeout(resolve, 500))
+    console.log('Toggling section status:', sectionId)
+    return { success: true, message: 'Section status updated successfully' }
+  },
+
+  // Update section order
+  updateSectionOrder: async (sections) => {
+    await new Promise(resolve => setTimeout(resolve, 500))
+    console.log('Updating section order:', sections)
+    return { success: true, message: 'Section order updated successfully' }
+  },
+
+  // Get section statistics
+  getSectionStatistics: async () => {
+    await new Promise(resolve => setTimeout(resolve, 500))
+    return {
+      total_sections: 15,
+      active_sections: 12,
+      inactive_sections: 3,
+      sections_by_type: {
+        hero: 5,
+        product_showcase: 3,
+        testimonial: 2,
+        cta: 3,
+        newsletter: 2
+      }
+    }
   }
 }

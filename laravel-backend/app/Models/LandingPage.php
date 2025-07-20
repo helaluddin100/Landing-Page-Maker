@@ -43,6 +43,22 @@ class LandingPage extends Model
     }
 
     /**
+     * Get the sections for this landing page
+     */
+    public function sections()
+    {
+        return $this->hasMany(Section::class)->ordered();
+    }
+
+    /**
+     * Get active sections only
+     */
+    public function activeSections()
+    {
+        return $this->hasMany(Section::class)->active()->ordered();
+    }
+
+    /**
      * Scope for published pages
      */
     public function scopePublished($query)

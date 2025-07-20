@@ -41,6 +41,10 @@ const Header = ({ onToggleSidebar, sidebarVisible }) => {
                 <i className="bi bi-globe me-1"></i>
                 Domains
               </Nav.Link>
+              <Nav.Link href="/sections" className="mx-2">
+                <i className="bi bi-puzzle me-1"></i>
+                Sections
+              </Nav.Link>
               <Nav.Link href="#features" className="mx-2">
                 <i className="bi bi-grid-3x3 me-1"></i>
                 Features
@@ -83,6 +87,10 @@ const Header = ({ onToggleSidebar, sidebarVisible }) => {
             <Nav.Link href="/domains" className="py-3 border-bottom">
               <i className="bi bi-globe me-2"></i>
               Domains
+            </Nav.Link>
+            <Nav.Link href="/sections" className="py-3 border-bottom">
+              <i className="bi bi-puzzle me-2"></i>
+              Sections
             </Nav.Link>
             <Nav.Link href="#features" className="py-3 border-bottom">
               <i className="bi bi-grid-3x3 me-2"></i>
