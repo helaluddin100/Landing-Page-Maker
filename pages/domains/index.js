@@ -299,6 +299,7 @@ export default function DomainsPage() {
                     {pages.map((page) => (
                       <option key={page.id} value={page.id}>
                         {page.title} (/{page.slug})
+                        )
                       </option>
                     ))}
                   </Form.Select>
