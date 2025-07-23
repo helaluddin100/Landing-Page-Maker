@@ -29,7 +29,7 @@ export default function AdminSectionTypesManagement() {
       setLoading(true)
       const response = await fetch('/api/admin/section-types')
       const result = await response.json()
-      
+
       if (result.success) {
         setSectionTypes(result.data.data || result.data)
       }
@@ -45,13 +45,13 @@ export default function AdminSectionTypesManagement() {
     e.preventDefault()
     try {
       setLoading(true)
-      
-      const url = editingSectionType 
+
+      const url = editingSectionType
         ? `/api/admin/section-types/${editingSectionType.id}`
         : '/api/admin/section-types'
-      
+
       const method = editingSectionType ? 'PUT' : 'POST'
-      
+
       const response = await fetch(url, {
         method,
         headers: {
@@ -59,13 +59,13 @@ export default function AdminSectionTypesManagement() {
         },
         body: JSON.stringify(formData)
       })
-      
+
       const result = await response.json()
-      
+
       if (result.success) {
-        setMessage({ 
-          type: 'success', 
-          text: editingSectionType ? 'Section type updated successfully!' : 'Section type created successfully!' 
+        setMessage({
+          type: 'success',
+          text: editingSectionType ? 'Section type updated successfully!' : 'Section type created successfully!'
         })
         setShowModal(false)
         setEditingSectionType(null)
@@ -103,9 +103,9 @@ export default function AdminSectionTypesManagement() {
         const response = await fetch(`/api/admin/section-types/${sectionTypeId}`, {
           method: 'DELETE'
         })
-        
+
         const result = await response.json()
-        
+
         if (result.success) {
           setMessage({ type: 'success', text: 'Section type deleted successfully!' })
           loadSectionTypes()
@@ -124,13 +124,13 @@ export default function AdminSectionTypesManagement() {
       const response = await fetch(`/api/admin/section-types/${sectionType.id}/toggle-status`, {
         method: 'POST'
       })
-      
+
       const result = await response.json()
-      
+
       if (result.success) {
-        setMessage({ 
-          type: 'success', 
-          text: `Section type ${!sectionType.is_active ? 'activated' : 'deactivated'} successfully!` 
+        setMessage({
+          type: 'success',
+          text: `Section type ${!sectionType.is_active ? 'activated' : 'deactivated'} successfully!`
         })
         loadSectionTypes()
       } else {
@@ -166,7 +166,7 @@ export default function AdminSectionTypesManagement() {
   return (
     <div className="min-vh-100 d-flex flex-column">
       <Header />
-      
+
       <Container className="flex-grow-1 py-5">
         <Row>
           <Col>
@@ -178,8 +178,8 @@ export default function AdminSectionTypesManagement() {
                 </h1>
                 <p className="text-muted">Manage available section types for the page builder</p>
               </div>
-              <Button 
-                variant="primary" 
+              <Button
+                variant="primary"
                 onClick={() => setShowModal(true)}
                 size="lg"
               >
@@ -189,9 +189,9 @@ export default function AdminSectionTypesManagement() {
             </div>
 
             {message.text && (
-              <Alert 
-                variant={message.type} 
-                dismissible 
+              <Alert
+                variant={message.type}
+                dismissible
                 onClose={() => setMessage({ type: '', text: '' })}
                 className="mb-4"
               >
@@ -256,7 +256,7 @@ export default function AdminSectionTypesManagement() {
                             </Badge>
                           </td>
                           <td>
-                            <div 
+                            <div
                               style={{ cursor: 'pointer' }}
                               onClick={() => toggleSectionTypeStatus(sectionType)}
                             >
@@ -283,7 +283,7 @@ export default function AdminSectionTypesManagement() {
                                   {sectionType.is_active ? 'Deactivate' : 'Activate'}
                                 </Dropdown.Item>
                                 <Dropdown.Divider />
-                                <Dropdown.Item 
+                                <Dropdown.Item
                                   onClick={() => handleDelete(sectionType.id)}
                                   className="text-danger"
                                 >
@@ -323,7 +323,7 @@ export default function AdminSectionTypesManagement() {
                   <Form.Control
                     type="text"
                     value={formData.type}
-                    onChange={(e) => setFormData({...formData, type: e.target.value})}
+                    onChange={(e) => setFormData({ ...formData, type: e.target.value })}
                     placeholder="hero, product_showcase, etc."
                     required
                   />
@@ -338,7 +338,7 @@ export default function AdminSectionTypesManagement() {
                   <Form.Control
                     type="text"
                     value={formData.name}
-                    onChange={(e) => setFormData({...formData, name: e.target.value})}
+                    onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                     placeholder="Hero Section"
                     required
                   />
@@ -352,7 +352,7 @@ export default function AdminSectionTypesManagement() {
                 as="textarea"
                 rows={2}
                 value={formData.description}
-                onChange={(e) => setFormData({...formData, description: e.target.value})}
+                onChange={(e) => setFormData({ ...formData, description: e.target.value })}
                 placeholder="Brief description of this section type"
                 required
               />
@@ -365,7 +365,7 @@ export default function AdminSectionTypesManagement() {
                   <Form.Control
                     type="text"
                     value={formData.icon}
-                    onChange={(e) => setFormData({...formData, icon: e.target.value})}
+                    onChange={(e) => setFormData({ ...formData, icon: e.target.value })}
                     placeholder="bi-star"
                     required
                   />
@@ -380,7 +380,7 @@ export default function AdminSectionTypesManagement() {
                   <Form.Control
                     type="number"
                     value={formData.sort_order}
-                    onChange={(e) => setFormData({...formData, sort_order: parseInt(e.target.value)})}
+                    onChange={(e) => setFormData({ ...formData, sort_order: parseInt(e.target.value) })}
                     min="0"
                   />
                 </Form.Group>
@@ -392,7 +392,7 @@ export default function AdminSectionTypesManagement() {
               <Form.Control
                 type="url"
                 value={formData.thumbnail}
-                onChange={(e) => setFormData({...formData, thumbnail: e.target.value})}
+                onChange={(e) => setFormData({ ...formData, thumbnail: e.target.value })}
                 placeholder="https://example.com/thumbnail.jpg"
               />
             </Form.Group>
@@ -406,7 +406,7 @@ export default function AdminSectionTypesManagement() {
                 onChange={(e) => {
                   try {
                     const data = JSON.parse(e.target.value)
-                    setFormData({...formData, default_data: data})
+                    setFormData({ ...formData, default_data: data })
                   } catch (error) {
                     // Invalid JSON, keep the text for user to fix
                   }
@@ -424,7 +424,7 @@ export default function AdminSectionTypesManagement() {
                 type="checkbox"
                 label="Active Section Type"
                 checked={formData.is_active}
-                onChange={(e) => setFormData({...formData, is_active: e.target.checked})}
+                onChange={(e) => setFormData({ ...formData, is_active: e.target.checked })}
               />
             </Form.Group>
           </Modal.Body>
