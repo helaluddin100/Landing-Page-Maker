@@ -284,72 +284,6 @@ export const mockApiService = {
   // SECTION MANAGEMENT APIs
   // ==========================================
 
-  // Get all sections with filters
-  getSections: async (filters = {}) => {
-    await new Promise(resolve => setTimeout(resolve, 500))
-    
-    // Mock sections data
-    let sections = [
-      {
-        id: 1,
-        landing_page_id: 1,
-        section_id: 'hero-section-1',
-        type: 'hero',
-        data: {
-          title: 'Welcome to Our Store',
-          subtitle: 'Amazing products await you',
-          primaryButtonText: 'Shop Now',
-          secondaryButtonText: 'Learn More'
-        },
-        sort_order: 1,
-        is_active: true,
-        created_at: new Date().toISOString(),
-        updated_at: new Date().toISOString()
-      },
-      {
-        id: 2,
-        landing_page_id: 1,
-        section_id: 'products-section-1',
-        type: 'product_showcase',
-        data: {
-          title: 'Featured Products',
-          subtitle: 'Check out our best sellers'
-        },
-        sort_order: 2,
-        is_active: true,
-        created_at: new Date().toISOString(),
-        updated_at: new Date().toISOString()
-      },
-      {
-        id: 3,
-        landing_page_id: 2,
-        section_id: 'cta-section-1',
-        type: 'cta',
-        data: {
-          title: 'Ready to Get Started?',
-          subtitle: 'Join us today',
-          primaryButtonText: 'Get Started'
-        },
-        sort_order: 1,
-        is_active: false,
-        created_at: new Date().toISOString(),
-        updated_at: new Date().toISOString()
-      }
-    ]
-
-    // Apply filters
-    if (filters.page_id) {
-      sections = sections.filter(s => s.landing_page_id == filters.page_id)
-    }
-    if (filters.type) {
-      sections = sections.filter(s => s.type === filters.type)
-    }
-    if (filters.active !== '') {
-      sections = sections.filter(s => s.is_active === (filters.active === 'true'))
-    }
-
-    return { data: sections }
-  },
 
   // Get section types
   getSectionTypes: async () => {
@@ -410,19 +344,5 @@ export const mockApiService = {
   },
 
   // Get section statistics
-  getSectionStatistics: async () => {
-    await new Promise(resolve => setTimeout(resolve, 500))
-    return {
-      total_sections: 15,
-      active_sections: 12,
-      inactive_sections: 3,
-      sections_by_type: {
-        hero: 5,
-        product_showcase: 3,
-        testimonial: 2,
-        cta: 3,
-        newsletter: 2
-      }
-    }
-  }
+
 }

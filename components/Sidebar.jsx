@@ -11,27 +11,27 @@ const Sidebar = ({ sections, onClose }) => {
             <i className="bi bi-puzzle me-2"></i>
             Page Sections
           </h5>
-          <Button 
-            variant="outline-secondary" 
-            size="sm" 
+          <Button
+            variant="outline-secondary"
+            size="sm"
             className="d-lg-none"
             onClick={onClose}
           >
             <i className="bi bi-x"></i>
           </Button>
         </div>
-        
+
         <Droppable droppableId="sidebar" isDropDisabled={true}>
           {(provided) => (
             <div ref={provided.innerRef} {...provided.droppableProps}>
               {sections.map((section, index) => (
-                <Draggable 
-                  key={section.id} 
-                  draggableId={section.id} 
+                <Draggable
+                  key={section.id}
+                  draggableId={section.id}
                   index={index}
                 >
                   {(provided, snapshot) => (
-                    <Card 
+                    <Card
                       className={`section-item mb-3 ${snapshot.isDragging ? 'shadow-lg' : ''}`}
                       ref={provided.innerRef}
                       {...provided.draggableProps}

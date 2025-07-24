@@ -133,6 +133,13 @@ export const sectionTypes = [
           subtitle: 'Discover our exclusive collection',
           image: 'https://images.pexels.com/photos/3184291/pexels-photo-3184291.jpeg?auto=compress&cs=tinysrgb&w=800',
           buttonText: 'Shop Now'
+        },
+        {
+          id: 2,
+          title: 'Helal Uddin Form Landing Page',
+          subtitle: 'Discover our exclusive collection',
+          image: 'https://images.pexels.com/photos/3184291/pexels-photo-3184291.jpeg?auto=compress&cs=tinysrgb&w=800',
+          buttonText: 'Shop Now'
         }
       ]
     }
