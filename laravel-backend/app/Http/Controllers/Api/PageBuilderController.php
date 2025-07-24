@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Models\LandingPage;
 use App\Models\SectionType;
+use App\Http\Resources\SectionTypeResource;
+use App\Http\Resources\LandingPageResource;
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Validation\Rule;
@@ -19,7 +21,10 @@ class PageBuilderController extends Controller
         try {
             $sections = SectionType::active()->ordered()->get();
             
-            return response()->json($sections);
+            return response()->json([
+                'success' => true,
+                'data' => SectionTypeResource::collection($sections)
+            ]);
         } catch (\Exception $e) {
             return response()->json([
                 'success' => false,
@@ -41,7 +46,7 @@ class PageBuilderController extends Controller
             
             return response()->json([
                 'success' => true,
-                'data' => $page
+                'data' => new LandingPageResource($page)
             ]);
         } catch (\Exception $e) {
             return response()->json([
@@ -61,7 +66,7 @@ class PageBuilderController extends Controller
             
             return response()->json([
                 'success' => true,
-                'data' => $page
+                'data' => new LandingPageResource($page)
             ]);
         } catch (\Exception $e) {
             return response()->json([
@@ -94,7 +99,7 @@ class PageBuilderController extends Controller
             
             return response()->json([
                 'success' => true,
-                'data' => $pages
+                'data' => LandingPageResource::collection($pages)->response()->getData()
             ]);
         } catch (\Exception $e) {
             return response()->json([
@@ -145,7 +150,7 @@ class PageBuilderController extends Controller
             return response()->json([
                 'success' => true,
                 'message' => $id ? 'Page updated successfully' : 'Page created successfully',
-                'data' => $page
+                'data' => new LandingPageResource($page)
             ], $id ? 200 : 201);
 
         } catch (\Illuminate\Validation\ValidationException $e) {
@@ -202,7 +207,7 @@ class PageBuilderController extends Controller
             return response()->json([
                 'success' => true,
                 'message' => 'Page duplicated successfully',
-                'data' => $newPage
+                'data' => new LandingPageResource($newPage)
             ], 201);
         } catch (\Exception $e) {
             return response()->json([

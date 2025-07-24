@@ -6,6 +6,8 @@ use App\Http\Controllers\Api\PageBuilderController;
 use App\Http\Controllers\Api\OrderController;
 use App\Http\Controllers\Api\SectionController;
 use App\Http\Controllers\Api\CustomDomainController;
+use App\Http\Controllers\Admin\SectionController as AdminSectionController;
+use App\Http\Controllers\Admin\SectionTypeController as AdminSectionTypeController;
 
 /*
 |--------------------------------------------------------------------------
@@ -63,6 +65,33 @@ Route::middleware('api')->group(function () {
 
     // Legacy route for frontend compatibility
     Route::post('/order', [OrderController::class, 'store']);
+
+    // Admin Routes (for admin panel)
+    Route::prefix('admin')->group(function () {
+        // Section Management (Admin)
+        Route::prefix('sections')->group(function () {
+            Route::get('/', [AdminSectionController::class, 'index']);
+            Route::post('/', [AdminSectionController::class, 'store']);
+            Route::get('/statistics', [AdminSectionController::class, 'statistics']);
+            Route::post('/update-order', [AdminSectionController::class, 'updateOrder']);
+            Route::get('/{section}', [AdminSectionController::class, 'show']);
+            Route::put('/{section}', [AdminSectionController::class, 'update']);
+            Route::delete('/{section}', [AdminSectionController::class, 'destroy']);
+            Route::post('/{section}/duplicate', [AdminSectionController::class, 'duplicate']);
+            Route::post('/{section}/toggle-status', [AdminSectionController::class, 'toggleStatus']);
+        });
+
+        // Section Types Management (Admin)
+        Route::prefix('section-types')->group(function () {
+            Route::get('/', [AdminSectionTypeController::class, 'index']);
+            Route::post('/', [AdminSectionTypeController::class, 'store']);
+            Route::post('/update-order', [AdminSectionTypeController::class, 'updateOrder']);
+            Route::get('/{sectionType}', [AdminSectionTypeController::class, 'show']);
+            Route::put('/{sectionType}', [AdminSectionTypeController::class, 'update']);
+            Route::delete('/{sectionType}', [AdminSectionTypeController::class, 'destroy']);
+            Route::post('/{sectionType}/toggle-status', [AdminSectionTypeController::class, 'toggleStatus']);
+        });
+    });
 });
 
 // Public routes (if needed)
