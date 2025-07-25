@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react'
+import { useRouter } from 'next/router'
 import { Container, Row, Col } from 'react-bootstrap'
 import dynamic from 'next/dynamic'
 import Header from '../components/Header'
@@ -16,16 +17,32 @@ const DragDropContext = dynamic(
 )
 
 export default function Home() {
+  const router = useRouter()
+  const { page } = router.query
+
+  const [pageId, setPageId] = useState(null)
   const [sections, setSections] = useState([])
   const [availableSections, setAvailableSections] = useState([])
   const [loading, setLoading] = useState(false)
-  const [pageId, setPageId] = useState(1)
   const [sidebarVisible, setSidebarVisible] = useState(false)
 
+  // Get pageId from query string (e.g., ?page=2)
   useEffect(() => {
-    loadAvailableSections()
-    loadPage()
-  }, [])
+    if (page) {
+      setPageId(Number(page))
+    } else {
+      // fallback or redirect if needed
+      setPageId(1)
+    }
+  }, [page])
+
+  // Load page data after pageId is set
+  useEffect(() => {
+    if (pageId) {
+      loadAvailableSections()
+      loadPage(pageId)
+    }
+  }, [pageId])
 
   const loadAvailableSections = async () => {
     try {
@@ -36,10 +53,10 @@ export default function Home() {
     }
   }
 
-  const loadPage = async () => {
+  const loadPage = async (id) => {
     try {
       setLoading(true)
-      const data = await mockApiService.getPage(pageId)
+      const data = await mockApiService.getPage(id)
       setSections(data.sections || [])
     } catch (error) {
       console.error('Error loading page:', error)
@@ -66,7 +83,7 @@ export default function Home() {
 
     if (!destination) return
 
-    // Dragging from sidebar to canvas
+    // From sidebar to canvas
     if (source.droppableId === 'sidebar' && destination.droppableId === 'canvas') {
       const sectionType = availableSections.find(s => s.id === draggableId)
       if (sectionType) {
@@ -75,7 +92,7 @@ export default function Home() {
           type: sectionType.type,
           data: { ...sectionType.defaultData }
         }
-        
+
         const newSections = [...sections]
         newSections.splice(destination.index, 0, newSection)
         setSections(newSections)
@@ -92,8 +109,8 @@ export default function Home() {
   }
 
   const updateSection = (sectionId, newData) => {
-    setSections(sections.map(section => 
-      section.id === sectionId 
+    setSections(sections.map(section =>
+      section.id === sectionId
         ? { ...section, data: { ...section.data, ...newData } }
         : section
     ))
@@ -116,28 +133,28 @@ export default function Home() {
   return (
     <div className="page-builder d-flex flex-column min-vh-100">
       <Header onToggleSidebar={toggleSidebar} sidebarVisible={sidebarVisible} />
-      
-      <Toolbar 
+
+      <Toolbar
         onSave={savePage}
-        onLoad={loadPage}
+        onLoad={() => loadPage(pageId)}
         onClear={clearCanvas}
         loading={loading}
       />
-      
+
       <DragDropContext onDragEnd={onDragEnd}>
         <Container fluid className="flex-grow-1">
           <Row className="min-vh-100">
-            <Col 
-              lg={3} 
+            <Col
+              lg={3}
               className={`p-0 ${sidebarVisible ? 'd-block' : 'd-none d-lg-block'}`}
             >
-              <Sidebar 
-                sections={availableSections} 
+              <Sidebar
+                sections={availableSections}
                 onClose={() => setSidebarVisible(false)}
               />
             </Col>
             <Col lg={9} className="p-0">
-              <Canvas 
+              <Canvas
                 sections={sections}
                 onUpdateSection={updateSection}
                 onRemoveSection={removeSection}
@@ -146,7 +163,7 @@ export default function Home() {
           </Row>
         </Container>
       </DragDropContext>
-      
+
       <Footer />
     </div>
   )

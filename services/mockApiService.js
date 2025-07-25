@@ -10,115 +10,85 @@ export const mockApiService = {
     return sectionTypes
   },
 
-  // GET /api/page-builder/slug/{slug}
-  getPageBySlug: async (slug) => {
-    await new Promise(resolve => setTimeout(resolve, 500))
-
-    // Mock pages database
-    const mockPages = [
-      {
-        id: 1,
-        title: 'My Landing Page',
-        slug: 'my-landing-page',
-        status: 'published',
-        meta_description: 'Amazing landing page for our products',
-        meta_keywords: 'landing, page, products',
-        sections: [
-          {
-            id: 'section-1',
-            type: 'hero',
-            data: {
-              title: 'Welcome to Our Amazing Store',
-              subtitle: 'Discover premium products at unbeatable prices',
-              primaryButtonText: 'Shop Now',
-              secondaryButtonText: 'Learn More',
-              image: 'https://images.pexels.com/photos/3184291/pexels-photo-3184291.jpeg?auto=compress&cs=tinysrgb&w=600'
-            }
-          },
-          {
-            id: 'section-2',
-            type: 'product_showcase',
-            data: {
-              title: 'Featured Products',
-              subtitle: 'Check out our best sellers'
-            }
-          }
-        ],
-        created_at: new Date().toISOString(),
-        updated_at: new Date().toISOString()
-      },
-      {
-        id: 2,
-        title: 'Product Launch Page',
-        slug: 'product-launch',
-        status: 'published',
-        meta_description: 'Exciting new product launch',
-        meta_keywords: 'product, launch, new',
-        sections: [
-          {
-            id: 'section-1',
-            type: 'hero',
-            data: {
-              title: 'Revolutionary New Product',
-              subtitle: 'Experience the future today',
-              primaryButtonText: 'Pre-Order Now',
-              secondaryButtonText: 'Learn More'
-            }
-          }
-        ],
-        created_at: new Date().toISOString(),
-        updated_at: new Date().toISOString()
+// GET /api/page-builder/slug/{slug}
+getPageBySlug: async (slug) => {
+  try {
+    // API Call
+    const response = await fetch(`${API_BASE_URL}/landing-pages/${slug}`, {
+      headers: {
+        'Accept': 'application/json'
       }
-    ]
+    });
 
-    const page = mockPages.find(p => p.slug === slug)
-    if (!page) {
-      throw new Error('Page not found')
+    if (!response.ok) {
+      throw new Error('Page not found');
     }
 
-    return page
-  },
+    const data = await response.json();
+
+    // Ensure sections is parsed if it's a string
+    const parsedSections = typeof data.sections === 'string'
+      ? JSON.parse(data.sections)
+      : data.sections;
+
+    // Format like your mockPages
+    const formattedPage = {
+      id: data.id,
+      title: data.title,
+      slug: data.slug,
+      status: data.status,
+      meta_description: data.meta_description,
+      meta_keywords: data.meta_keywords,
+      sections: parsedSections,
+      created_at: data.created_at,
+      updated_at: data.updated_at,
+    };
+
+    return formattedPage;
+
+  } catch (error) {
+    console.error('Error fetching page:', error.message);
+    throw new Error('Failed to load landing page');
+  }
+},
   // GET /api/page-builder/{id}
-  getPage: async (pageId) => {
-    await new Promise(resolve => setTimeout(resolve, 500))
+getPage: async (pageId) => {
+  try {
+    // API call to fetch landing page data for editing
+    const response = await fetch(`${API_BASE_URL}/landing-pages/${pageId}/edit`, {
+      headers: {
+        'Accept': 'application/json'
+      }
+    });
 
-    // Return mock page data
-    const mockPage = {
-      id: pageId,
-      title: 'My Landing Page',
-      slug: 'my-landing-page',
-      status: 'draft',
-      meta_description: 'Amazing landing page for our products',
-      meta_keywords: 'landing, page, products',
-      sections: [
-        {
-          id: 'section-1',
-          type: 'hero',
-          data: {
-            title: 'Welcome to Our Amazing Store',
-            subtitle: 'Discover premium products at unbeatable prices',
-            primaryButtonText: 'Shop Now',
-            secondaryButtonText: 'Learn More',
-            image: 'https://images.pexels.com/photos/3184291/pexels-photo-3184291.jpeg?auto=compress&cs=tinysrgb&w=600'
-
-          }
-        },
-        {
-          id: 'section-2',
-          type: 'product_showcase',
-          data: {
-            title: 'Featured Products',
-            subtitle: 'Check out our best sellers'
-          }
-        }
-      ],
-      created_at: new Date().toISOString(),
-      updated_at: new Date().toISOString()
+    if (!response.ok) {
+      throw new Error('Failed to fetch page');
     }
 
-    return mockPage
-  },
+    const data = await response.json();
 
+    const formattedPage = {
+      id: data.id,
+      title: data.title,
+      slug: data.slug,
+      status: data.status,
+      meta_description: data.meta_description,
+      meta_keywords: data.meta_keywords,
+      facebook_pixel: data.facebook_pixel,
+      color: data.color,
+      domain: data.domain,
+      sections: typeof data.sections === 'string' ? JSON.parse(data.sections) : data.sections,
+      created_at: data.created_at,
+      updated_at: data.updated_at,
+    };
+
+    return formattedPage;
+
+  } catch (error) {
+    console.error('Error fetching page:', error.message);
+    throw error;
+  }
+},
 
 
   savePage: async (pageId, pageData) => {
